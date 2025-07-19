@@ -25,15 +25,34 @@
 
 // Find the average time your server is taking to handle requests
 
-const express = require("express");
-const app = express();
+// const express = require("express");
+// const zod = require("zod");
+// const app = express();
+// const schema = zod.array(zod.number());
 
-app.use(express.json());
+// app.use(express.json());
 
-app.post("/health-checkup", function (req, res) {
-  const kidneys = req.body.kidneys;
-  const kidneyLength = kidneys.length;
+// app.post("/health-checkup", function (req, res) {
+//   const kidneys = req.body.kidneys;
+//   const response = schema.safeParse(kidneys);
+//   res.send({
+//     response,
+//   });
+// });
+// app.listen(3000);
 
-  res.send("you have " + kidneyLength + "kidneys");
+const zod = require("zod");
+
+function validateInput(obj) {
+  const schema = zod.object({
+    email: zod.string().email(),
+    password: zod.string().min(8),
+  });
+  const response = schema.safeParse(obj);
+  console.log(response);
+}
+
+validateInput({
+  email: "gk@gmail.com",
+  password: "ssdddfffddda",
 });
-app.listen(3000);
